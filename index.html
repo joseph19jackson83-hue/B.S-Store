@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BS Fasfion Store</title>
+
+<style>
+:root {
+  --accent: gold;
+  --bg: #111;
+  --text: #fff;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+}
+header {
+  text-align: center;
+  padding: 20px;
+  background: #000;
+  color: var(--accent);
+  font-size: 28px;
+  font-weight: bold;
+}
+nav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  background: #222;
+  padding: 10px;
+}
+nav button {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  padding: 8px 18px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: 0.3s;
+}
+nav button.active, nav button:hover {
+  background: var(--accent);
+  color: #000;
+}
+section {
+  display: none;
+  padding: 30px;
+  text-align: center;
+}
+section.active {
+  display: block;
+}
+h2 {
+  color: var(--accent);
+  margin-bottom: 20px;
+}
+
+/* ====== BOUTONS CATÉGORIES ====== */
+.access-btn {
+  margin: 5px;
+  padding: 8px 16px;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  background: transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+.access-btn.active, .access-btn:hover {
+  background: var(--accent);
+  color: #000;
+}
+
+/* ====== GALERIE ====== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+.gallery img {
+  width: 100%;
+  border-radius: 8px;
+  border: 2px solid var(--accent);
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  cursor: pointer;
+}
+.gallery img:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 12px var(--accent);
+}
+.gallery p {
+  color: var(--accent);
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* ====== POPUP IMAGE ====== */
+.image-popup {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: rgba(0,0,0,0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.image-popup.active {
+  visibility: visible;
+  opacity: 1;
+}
+.image-popup img {
+  max-width: 90%;
+  max-height: 75%;
+  border: 3px solid var(--accent);
+  border-radius: 10px;
+  box-shadow: 0 0 25px var(--accent);
+}
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+  color: var(--accent);
+  background: rgba(0,0,0,0.4);
+  border-radius: 50%;
+  padding: 10px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+.arrow:hover {
+  background: rgba(255,215,0,0.6);
+  transform: translateY(-50%) scale(1.1);
+}
+.arrow.left { left: 30px; }
+.arrow.right { right: 30px; }
+.image-popup #popupDesc {
+  color: var(--accent);
+  font-size: 15px;
+  margin-top: 15px;
+  text-align: center;
+}
+
+/* ====== CONTACT ====== */
+#contact a { color: gold; text-decoration: none; }
+#contact hr {
+  border: 1px solid gold;
+  width: 60%;
+  margin: 20px auto;
+}
+#contact .slogan {
+  font-style: italic;
+  margin-top: 20px auto;
+  font-weight: bold;
+  background: linear-gradient(90deg, gold, white, gold);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-size: 200%;
+  animation: shine 4s linear infinite;
+}
+@keyframes shine {
+  0% { background-position: 0%; }
+  100% { background-position: 200%; }
+}
+</style>
+</head>
+<body>
+
+<header>🛍️ BS Fashion Store</header>
+
+<nav>
+  <button class="nav-btn active" data-target="accueil">Accueil</button>
+  <button class="nav-btn" data-target="vetements">Vêtements</button>
+  <button class="nav-btn" data-target="accessoires">Accessoires</button>
+  <button class="nav-btn" data-target="contact">Contact</button>
+</nav>
+
+<section id="accueil" class="active">
+  <h2>Bienvenue sur BS Fashion Store</h2>
+  <p>Découvrez nos vêtements et accessoires de qualité pour homme, femme et enfant.</p>
+  <p>Venez en foule mes amours, faites votre choix; nous vous accueillons 24 h/24 et 7 j/7.
+Ne manquez pas votre chance !
+    Nous vendons en gros et au détail.
+    B.S. Fashion Store est à nous.</p>
+</section>
+
+<section id="vetements">
+  <h2>Vêtements</h2>
+  <div>
+    <button class="access-btn active" data-category="Homme">Homme</button>
+    <button class="access-btn" data-category="Femme">Femme</button>
+    <button class="access-btn" data-category="Enfant">Enfant</button>
+  </div>
+  <div id="gallery-Homme" class="gallery"></div>
+  <div id="gallery-Femme" class="gallery" style="display:none;"></div>
+  <div id="gallery-Enfant" class="gallery" style="display:none;"></div>
+</section>
+
+<section id="accessoires">
+  <h2>Accessoires</h2>
+  <div>
+    <button class="access-btn active" data-category="chaines">Chaînes</button>
+    <button class="access-btn" data-category="bagues">Bagues</button>
+    <button class="access-btn" data-category="boucles">Boucles</button>
+    <button class="access-btn" data-category="montres">Montres</button>
+    <button class="access-btn" data-category="sacs">Sacs</button>
+    <button class="access-btn" data-category="lunettes">Lunettes</button>
+    <button class="access-btn" data-category="casquettes">Casquettes</button>
+    <button class="access-btn" data-category="autres">Autres</button>
+  </div>
+  <div id="gallery-chaines" class="gallery"></div>
+  <div id="gallery-bagues" class="gallery" style="display:none;"></div>
+  <div id="gallery-boucles" class="gallery" style="display:none;"></div>
+  <div id="gallery-montres" class="gallery" style="display:none;"></div>
+  <div id="gallery-sacs" class="gallery" style="display:none;"></div>
+  <div id="gallery-lunettes" class="gallery" style="display:none;"></div>
+  <div id="gallery-casquettes" class="gallery" style="display:none;"></div>
+  <div id="gallery-autres" class="gallery" style="display:none;"></div>
+</section>
+
+<section id="contact">
+  <h2>Contactez-nous</h2>
+  <p>📞 <b>Service clientèle WhatsApp :</b> <a href="https://wa.me/50932117578" target="_blank">+509 32 11 7578</a></p>
+  <p>📱 <b>Support & commandes :</b> <a href="https://wa.me/50938912118" target="_blank">+509 38 91 2118</a></p>
+  <p>✉️ <b>Email :</b> <a href="mailto:bsstore@gmail.com">bsstore@gmail.com</a></p>
+  <hr>
+  <p class="slogan">BS Fashion Store — la mode à votre portée ✨</p>
+</section>
+
+<!-- Popup d’image -->
+<div class="image-popup" id="imagePopup">
+  <span class="arrow left" id="prevImg">❮</span>
+  <img src="" alt="">
+  <span class="arrow right" id="nextImg">❯</span>
+  <p id="popupDesc"></p>
+</div>
+
+<script>
+// ======= NAVIGATION =======
+const navBtns = document.querySelectorAll('.nav-btn');
+const sections = document.querySelectorAll('section');
+navBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    navBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    sections.forEach(sec => sec.classList.remove('active'));
+    document.getElementById(btn.dataset.target).classList.add('active');
+  });
+});
+
+// ======= BOUTONS CATÉGORIES =======
+const accessBtns = document.querySelectorAll('.access-btn');
+accessBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const parent = btn.closest('section');
+    parent.querySelectorAll('.access-btn').forEach(b => b.classList.remove('active'));
+    parent.querySelectorAll('.gallery').forEach(g => g.style.display = 'none');
+    btn.classList.add('active');
+    const cat = btn.dataset.category;
+    parent.querySelector(`#gallery-${cat}`).style.display = 'grid';
+  });
+});
+
+// ======= GALERIES =======
+const galleries = {
+  Homme: [
+    {img:"homme1.jpg", desc:"Chemise élégante"},
+    {img:"homme2.jpg", desc:"Pantalon stylé"},
+    {img:"homme3.jpg", desc:"Maillot tendance"},
+    {img:"homme4.jpg", desc:"Caleçon confortable"}
+  ],
+  Femme: [
+    {img:"femme1.jpg", desc:"Robe chic"},
+    {img:"femme2.jpg", desc:"Jupe courte"},
+    {img:"femme3.jpg", desc:"Corsage moderne"},
+    {img:"femme4.jpg", desc:"Chemisier élégant"}
+  ],
+  Enfant: [
+    {img:"enfant1.jpg", desc:"T-shirt garçon"},
+    {img:"enfant2.jpg", desc:"Robe fille"},
+    {img:"enfant3.jpg", desc:"Pantalon enfant"},
+    {img:"enfant4.jpg", desc:"Chemisette colorée"}
+  ],
+  chaines: [
+    {img:"chaine1.jpg", desc:"Chaîne or homme"},
+    {img:"chaine2.jpg", desc:"Chaîne argent femme"},
+    {img:"chaine3.jpg", desc:"Collier élégant"}
+  ],
+  bagues: [
+    {img:"bague1.jpg", desc:"Bague or"},
+    {img:"bague2.jpg", desc:"Bague argent"},
+    {img:"bague3.jpg", desc:"Bague diamant"}
+  ],
+  boucles: [
+    {img:"boucle1.jpg", desc:"Boucles dorées"},
+    {img:"boucle2.jpg", desc:"Boucles argentées"},
+    {img:"boucle3.jpg", desc:"Créoles stylées"}
+  ],
+  montres: [
+    {img:"montre1.jpg", desc:"Montre élégante"},
+    {img:"montre2.jpg", desc:"Montre sportive"}
+  ],
+  sacs: [
+    {img:"sac1.jpg", desc:"Sac à main femme"},
+    {img:"sac2.jpg", desc:"Sac à dos cuir"}
+  ],
+  lunettes: [
+    {img:"lunette1.jpg", desc:"Lunettes de soleil"},
+    {img:"lunette2.jpg", desc:"Lunettes transparentes"}
+  ],
+  casquettes: [
+    {img:"casquette1.jpg", desc:"Casquette noire"},
+    {img:"casquette2.jpg", desc:"Casquette blanche"}
+  ],
+  autres: [
+    {img:"autre1.jpg", desc:"Accessoire mixte"},
+    {img:"autre2.jpg", desc:"Divers articles"}
+  ]
+};
+
+function loadGallery(category) {
+  const gallery = document.getElementById(`gallery-${category}`);
+  if (!gallery) return;
+  gallery.innerHTML = '';
+  galleries[category].forEach((item, i) => {
+    const div = document.createElement('div');
+    div.innerHTML = `
+      <img src="images/${category}/${item.img}" 
+           alt="${item.desc}" 
+           data-category="${category}" data-index="${i}">
+      <p>${item.desc}</p>
+    `;
+    gallery.appendChild(div);
+  });
+}
+Object.keys(galleries).forEach(cat => loadGallery(cat));
+
+// ======= POPUP =======
+const popup = document.getElementById('imagePopup');
+const popupImg = popup.querySelector('img');
+const popupDesc = document.getElementById('popupDesc');
+const nextImg = document.getElementById('nextImg');
+const prevImg = document.getElementById('prevImg');
+let currentCategory = null;
+let currentIndex = 0;
+
+document.body.addEventListener('click', e => {
+  if (e.target.tagName === 'IMG' && e.target.closest('.gallery')) {
+    currentCategory = e.target.dataset.category;
+    currentIndex = parseInt(e.target.dataset.index);
+    showImage();
+    popup.classList.add('active');
+  }
+});
+function showImage() {
+  const imgData = galleries[currentCategory][currentIndex];
+  popupImg.src = `images/${currentCategory}/${imgData.img}`;
+  popupDesc.textContent = imgData.desc;
+}
+popup.addEventListener('click', e => { if (e.target === popup) popup.classList.remove('active'); });
+nextImg.addEventListener('click', () => {
+  currentIndex = (currentIndex + 1) % galleries[currentCategory].length;
+  showImage();
+});
+prevImg.addEventListener('click', () => {
+  currentIndex = (currentIndex - 1 + galleries[currentCategory].length) % galleries[currentCategory].length;
+  showImage();
+});
+</script>
+
+</body>
+</html>
