@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BS Fashion Store</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header>🛍️ BS Fashion Store</header>
+
+<nav>
+  <button class="nav-btn active" data-target="accueil">Accueil</button>
+  <button class="nav-btn" data-target="vetements">Vêtements</button>
+  <button class="nav-btn" data-target="accessoires">Accessoires</button>
+  <button class="nav-btn" data-target="contact">Contact</button>
+</nav>
+
+<section id="accueil" class="active">
+  <h2>Bienvenue sur BS Fashion Store</h2>
+  <p>Découvrez nos vêtements et accessoires de qualité pour homme, femme et enfant.</p>
+  <p>Venez en foule mes amours, faites votre choix; nous vous accueillons 24 h/24 et 7 j/7.
+  Ne manquez pas votre chance ! Nous vendons en gros et au détail. B.S. Fashion Store est à nous.</p>
+</section>
+
+<section id="vetements">
+  <h2>Vêtements</h2>
+  <div>
+    <button class="access-btn active" data-category="Homme">Homme</button>
+    <button class="access-btn" data-category="Femme">Femme</button>
+    <button class="access-btn" data-category="Enfant">Enfant</button>
+  </div>
+  <div id="gallery-Homme" class="gallery"></div>
+  <div id="gallery-Femme" class="gallery" style="display:none;"></div>
+  <div id="gallery-Enfant" class="gallery" style="display:none;"></div>
+</section>
+
+<section id="accessoires">
+  <h2>Accessoires</h2>
+  <div>
+    <button class="access-btn active" data-category="chaines">Chaînes</button>
+    <button class="access-btn" data-category="bagues">Bagues</button>
+    <button class="access-btn" data-category="boucles">Boucles</button>
+    <button class="access-btn" data-category="montres">Montres</button>
+    <button class="access-btn" data-category="sacs">Sacs</button>
+    <button class="access-btn" data-category="lunettes">Lunettes</button>
+    <button class="access-btn" data-category="casquettes">Casquettes</button>
+    <button class="access-btn" data-category="autres">Autres</button>
+  </div>
+  <div id="gallery-chaines" class="gallery"></div>
+  <div id="gallery-bagues" class="gallery" style="display:none;"></div>
+  <div id="gallery-boucles" class="gallery" style="display:none;"></div>
+  <div id="gallery-montres" class="gallery" style="display:none;"></div>
+  <div id="gallery-sacs" class="gallery" style="display:none;"></div>
+  <div id="gallery-lunettes" class="gallery" style="display:none;"></div>
+  <div id="gallery-casquettes" class="gallery" style="display:none;"></div>
+  <div id="gallery-autres" class="gallery" style="display:none;"></div>
+</section>
+
+<section id="contact">
+  <h2>Contactez-nous</h2>
+  <p>📞 <b>Service clientèle WhatsApp :</b> <a href="https://wa.me/50932117578" target="_blank">+509 32 11 7578</a></p>
+  <p>📱 <b>Support & commandes :</b> <a href="https://wa.me/50938912118" target="_blank">+509 38 91 2118</a></p>
+  <p>✉️ <b>Email :</b> <a href="mailto:bsstore@gmail.com">bsstore@gmail.com</a></p>
+  <hr>
+  <p class="slogan">BS Fashion Store — la mode à votre portée ✨</p>
+</section>
+
+<div class="image-popup" id="imagePopup">
+  <span class="arrow left" id="prevImg">❮</span>
+  <img src="" alt="">
+  <span class="arrow right" id="nextImg">❯</span>
+  <p id="popupDesc"></p>
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
